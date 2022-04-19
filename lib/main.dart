@@ -4,21 +4,18 @@ void main() => runApp(QuizApp());
 
 class QuizApp extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return QuizAppState();
-  }
+  State<StatefulWidget> createState() => _QuizAppState();
 }
 
-class QuizAppState extends State<QuizApp> {
-  var questionIndex = 0;
+class _QuizAppState extends State<QuizApp> {
+  var _questionIndex = 0;
 
   void answerQuestion() {
     setState(() {
-      questionIndex = questionIndex + 1;
+      _questionIndex = _questionIndex + 1;
     });
   }
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     var questions = [
@@ -29,7 +26,7 @@ class QuizAppState extends State<QuizApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text(questions[questionIndex]),
+          title: Text(questions[_questionIndex]),
         ),
         body: Column(
           children: <Widget>[
