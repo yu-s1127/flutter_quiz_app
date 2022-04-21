@@ -16,7 +16,11 @@ class _QuizAppState extends State<QuizApp> {
 
   void answerQuestion() {
     setState(() {
-      _questionIndex = _questionIndex + 1;
+      if (_questionIndex == 2) {
+        _questionIndex = 0;
+      } else {
+        _questionIndex = _questionIndex + 1;
+      }
     });
   }
 
