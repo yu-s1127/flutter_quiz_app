@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quiz_app/answer.dart';
 import 'package:flutter_quiz_app/question.dart';
 
-void main() => runApp(QuizApp());
+void main() => runApp(const QuizApp());
 
 class QuizApp extends StatefulWidget {
+  const QuizApp({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _QuizAppState();
 }
 
 class _QuizAppState extends State<QuizApp> {
-  var _questionIndex = 0;
+  int _questionIndex = 0;
 
   void answerQuestion() {
     setState(() {
@@ -19,9 +22,19 @@ class _QuizAppState extends State<QuizApp> {
 
   @override
   Widget build(BuildContext context) {
-    var questions = [
-      'What\'s your favorite color?',
-      'What\'s your favorite animal?',
+    List<Map<String, Object>> questions = [
+      {
+        'questionText': 'What\'s your favorite color?',
+        'answers': <String>['Black', 'Red', 'Green', 'White'],
+      },
+      {
+        'questionText': 'What\'s your favorite animal?',
+        'answers': <String>['Rabbid', 'Snake', 'Elephant', 'Lion'],
+      },
+      {
+        'questionText': 'What\'s your favorite programing language?',
+        'answers': <String>['Java', 'TypeScript', 'Dart', 'Go'],
+      },
     ];
 
     return MaterialApp(
@@ -31,19 +44,25 @@ class _QuizAppState extends State<QuizApp> {
         ),
         body: Column(
           children: <Widget>[
-            Question(questionText: questions[_questionIndex]),
-            ElevatedButton(
-              child: const Text('Answer 1'),
-              onPressed: answerQuestion,
-            ),
-            ElevatedButton(
-              child: const Text('Answer 2'),
-              onPressed: () => print('Answer 2 choisen'),
-            ),
-            ElevatedButton(
-              child: const Text('Answer 3'),
-              onPressed: () => print('Answer 3 choisen'),
-            ),
+            Question(
+                questionText:
+                    questions[_questionIndex]['questionText'].toString()),
+            Expanded(
+              child: ListView.builder(
+                itemCount:
+                    (questions[_questionIndex]['answers'] as List<String>)
+                        .length,
+                itemBuilder: (BuildContext context, int index) {
+                  var answers =
+                      questions[_questionIndex]['answers'] as List<String>;
+                  var answer = answers[index];
+                  return Answer(
+                    selectHandler: answerQuestion,
+                    answerText: answer,
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),
