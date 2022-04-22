@@ -12,35 +12,37 @@ class QuizApp extends StatefulWidget {
 }
 
 class _QuizAppState extends State<QuizApp> {
+  static const List<Map<String, Object>> questions = [
+    {
+      'questionText': 'What\'s your favorite color?',
+      'answers': <String>['Black', 'Red', 'Green', 'White'],
+    },
+    {
+      'questionText': 'What\'s your favorite animal?',
+      'answers': <String>['Rabbid', 'Snake', 'Elephant', 'Lion'],
+    },
+    {
+      'questionText': 'What\'s your favorite programing language?',
+      'answers': <String>['Java', 'TypeScript', 'Dart', 'Go'],
+    },
+  ];
+
   int _questionIndex = 0;
 
   void answerQuestion() {
-    setState(() {
-      if (_questionIndex == 2) {
-        _questionIndex = 0;
-      } else {
+    if (_questionIndex < questions.length - 1) {
+      setState(() {
         _questionIndex = _questionIndex + 1;
-      }
-    });
+      });
+    } else {
+      setState(() {
+        _questionIndex = 0;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, Object>> questions = [
-      {
-        'questionText': 'What\'s your favorite color?',
-        'answers': <String>['Black', 'Red', 'Green', 'White'],
-      },
-      {
-        'questionText': 'What\'s your favorite animal?',
-        'answers': <String>['Rabbid', 'Snake', 'Elephant', 'Lion'],
-      },
-      {
-        'questionText': 'What\'s your favorite programing language?',
-        'answers': <String>['Java', 'TypeScript', 'Dart', 'Go'],
-      },
-    ];
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
