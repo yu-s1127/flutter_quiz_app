@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quiz_app/quiz.dart';
+import 'package:flutter_quiz_app/result.dart';
 
 void main() => runApp(const QuizApp());
 
@@ -38,18 +39,15 @@ class _QuizAppState extends State<QuizApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('My First App'),
-        ),
-        body: _questionIndex < _questions.length
-            ? Quiz(
-                question: _questions[_questionIndex],
-                answerQuestion: _answerQuestion,
-              )
-            : const Center(
-                child: Text('No more questions!'),
-              ),
-      ),
+          appBar: AppBar(
+            title: const Text('My First App'),
+          ),
+          body: _questionIndex < _questions.length
+              ? Quiz(
+                  question: _questions[_questionIndex],
+                  answerQuestion: _answerQuestion,
+                )
+              : const Result()),
     );
   }
 }
