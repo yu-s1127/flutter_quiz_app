@@ -66,7 +66,9 @@ class _QuizAppState extends State<QuizApp> {
                   )
                 ],
               )
-            : const Text('No more questions!'),
+            : const Center(
+                child: Text('No more questions!'),
+              ),
       ),
     );
   }
