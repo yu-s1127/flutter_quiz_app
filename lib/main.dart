@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_quiz_app/answer.dart';
-import 'package:flutter_quiz_app/question.dart';
+import 'package:flutter_quiz_app/quiz.dart';
 
 void main() => runApp(const QuizApp());
 
@@ -12,7 +11,7 @@ class QuizApp extends StatefulWidget {
 }
 
 class _QuizAppState extends State<QuizApp> {
-  static const List<Map<String, Object>> questions = [
+  static const List<Map<String, Object>> _questions = [
     {
       'questionText': 'What\'s your favorite color?',
       'answers': <String>['Black', 'Red', 'Green', 'White'],
@@ -29,7 +28,7 @@ class _QuizAppState extends State<QuizApp> {
 
   int _questionIndex = 0;
 
-  void answerQuestion() {
+  void _answerQuestion() {
     setState(() {
       _questionIndex = _questionIndex + 1;
     });
@@ -42,29 +41,10 @@ class _QuizAppState extends State<QuizApp> {
         appBar: AppBar(
           title: const Text('My First App'),
         ),
-        body: _questionIndex < questions.length
-            ? Column(
-                children: <Widget>[
-                  Question(
-                      questionText:
-                          questions[_questionIndex]['questionText'].toString()),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount:
-                          (questions[_questionIndex]['answers'] as List<String>)
-                              .length,
-                      itemBuilder: (BuildContext context, int index) {
-                        var answers = questions[_questionIndex]['answers']
-                            as List<String>;
-                        var answer = answers[index];
-                        return Answer(
-                          selectHandler: answerQuestion,
-                          answerText: answer,
-                        );
-                      },
-                    ),
-                  )
-                ],
+        body: _questionIndex < _questions.length
+            ? Quiz(
+                question: _questions[_questionIndex],
+                answerQuestion: _answerQuestion,
               )
             : const Center(
                 child: Text('No more questions!'),

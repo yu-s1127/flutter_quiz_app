@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Question extends StatelessWidget {
-  late final String _questionText;
+  const Question({Key? key, required this.questionText}) : super(key: key);
 
-  Question({Key? key, required String questionText}) : super(key: key) {
-    _questionText = questionText;
-  }
+  final String questionText;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +11,7 @@ class Question extends StatelessWidget {
         width: double.infinity,
         margin: const EdgeInsets.all(10),
         child: Text(
-          _questionText,
+          questionText,
           style: const TextStyle(
             fontSize: 28,
           ),
