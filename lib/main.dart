@@ -30,15 +30,9 @@ class _QuizAppState extends State<QuizApp> {
   int _questionIndex = 0;
 
   void answerQuestion() {
-    if (_questionIndex < questions.length - 1) {
-      setState(() {
-        _questionIndex = _questionIndex + 1;
-      });
-    } else {
-      setState(() {
-        _questionIndex = 0;
-      });
-    }
+    setState(() {
+      _questionIndex = _questionIndex + 1;
+    });
   }
 
   @override
@@ -48,29 +42,31 @@ class _QuizAppState extends State<QuizApp> {
         appBar: AppBar(
           title: const Text('My First App'),
         ),
-        body: Column(
-          children: <Widget>[
-            Question(
-                questionText:
-                    questions[_questionIndex]['questionText'].toString()),
-            Expanded(
-              child: ListView.builder(
-                itemCount:
-                    (questions[_questionIndex]['answers'] as List<String>)
-                        .length,
-                itemBuilder: (BuildContext context, int index) {
-                  var answers =
-                      questions[_questionIndex]['answers'] as List<String>;
-                  var answer = answers[index];
-                  return Answer(
-                    selectHandler: answerQuestion,
-                    answerText: answer,
-                  );
-                },
-              ),
-            )
-          ],
-        ),
+        body: _questionIndex < questions.length
+            ? Column(
+                children: <Widget>[
+                  Question(
+                      questionText:
+                          questions[_questionIndex]['questionText'].toString()),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount:
+                          (questions[_questionIndex]['answers'] as List<String>)
+                              .length,
+                      itemBuilder: (BuildContext context, int index) {
+                        var answers = questions[_questionIndex]['answers']
+                            as List<String>;
+                        var answer = answers[index];
+                        return Answer(
+                          selectHandler: answerQuestion,
+                          answerText: answer,
+                        );
+                      },
+                    ),
+                  )
+                ],
+              )
+            : const Text('No more questions!'),
       ),
     );
   }
