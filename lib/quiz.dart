@@ -7,7 +7,7 @@ class Quiz extends StatelessWidget {
       : super(key: key);
 
   final Map<String, Object> question;
-  final VoidCallback answerQuestion;
+  final void Function(int) answerQuestion;
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +16,14 @@ class Quiz extends StatelessWidget {
         Question(questionText: question['questionText'].toString()),
         Expanded(
           child: ListView.builder(
-            itemCount: (question['answers'] as List<String>).length,
+            itemCount:
+                (question['answers'] as List<Map<String, Object>>).length,
             itemBuilder: (BuildContext context, int index) {
-              var answers = question['answers'] as List<String>;
+              var answers = question['answers'] as List<Map<String, Object>>;
               var answer = answers[index];
               return Answer(
-                selectHandler: answerQuestion,
-                answerText: answer,
+                selectHandler: () => answerQuestion(answer['score'] as int),
+                answerText: answer['text'].toString(),
               );
             },
           ),

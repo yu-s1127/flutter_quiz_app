@@ -15,23 +15,40 @@ class _QuizAppState extends State<QuizApp> {
   static const List<Map<String, Object>> _questions = [
     {
       'questionText': 'What\'s your favorite color?',
-      'answers': <String>['Black', 'Red', 'Green', 'White'],
+      'answers': [
+        {'text': 'Black', 'score': 10},
+        {'text': 'Red', 'score': 5},
+        {'text': 'Green', 'score': 3},
+        {'text': 'White', 'score': 1},
+      ],
     },
     {
       'questionText': 'What\'s your favorite animal?',
-      'answers': <String>['Rabbid', 'Snake', 'Elephant', 'Lion'],
+      'answers': [
+        {'text': 'Rabbit', 'score': 3},
+        {'text': 'Snake', 'score': 11},
+        {'text': 'Elephant', 'score': 5},
+        {'text': 'Lion', 'score': 9},
+      ],
     },
     {
       'questionText': 'What\'s your favorite programing language?',
-      'answers': <String>['Java', 'TypeScript', 'Dart', 'Go'],
+      'answers': [
+        {'text': 'Java', 'score': 1},
+        {'text': 'TypeScript', 'score': 1},
+        {'text': 'Go', 'score': 1},
+        {'text': 'Dart', 'score': 1},
+      ],
     },
   ];
 
   int _questionIndex = 0;
+  int _totalScore = 0;
 
-  void _answerQuestion() {
+  void _answerQuestion(int score) {
     setState(() {
       _questionIndex = _questionIndex + 1;
+      _totalScore += score;
     });
   }
 
@@ -47,7 +64,9 @@ class _QuizAppState extends State<QuizApp> {
                   question: _questions[_questionIndex],
                   answerQuestion: _answerQuestion,
                 )
-              : const Result()),
+              : Result(
+                  resultScore: _totalScore,
+                )),
     );
   }
 }
