@@ -45,6 +45,13 @@ class _QuizAppState extends State<QuizApp> {
   int _questionIndex = 0;
   int _totalScore = 0;
 
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
   void _answerQuestion(int score) {
     setState(() {
       _questionIndex = _questionIndex + 1;
@@ -56,17 +63,19 @@ class _QuizAppState extends State<QuizApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: const Text('My First App'),
-          ),
-          body: _questionIndex < _questions.length
-              ? Quiz(
-                  question: _questions[_questionIndex],
-                  answerQuestion: _answerQuestion,
-                )
-              : Result(
-                  resultScore: _totalScore,
-                )),
+        appBar: AppBar(
+          title: const Text('My First App'),
+        ),
+        body: _questionIndex < _questions.length
+            ? Quiz(
+                question: _questions[_questionIndex],
+                answerQuestion: _answerQuestion,
+              )
+            : Result(
+                resultScore: _totalScore,
+                resetHandler: _resetQuiz,
+              ),
+      ),
     );
   }
 }
